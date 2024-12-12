@@ -8,7 +8,7 @@ body {
     margin: 36px auto;
   }
 
-  button {
+  a {
     background: none;
     border: 1px solid white;
     border-radius: 0.5rem;
@@ -21,7 +21,7 @@ body {
     transition: background 1s, color 1s;
   }
 
-  button:hover {
+  a:hover {
     background: white;
     color: black;
     transition: background 1s, color 1s;
