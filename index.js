@@ -1,5 +1,6 @@
 const OLLAMA_API_URL = "http://localhost:11434/api/generate";
-let sentence = getNewSentence();
+let isLoading = true;
+let sentence = isLoading ? "Loading..." : getNewSentence();
 let sentenceArr = [];
 let counter = 0;
 const root = document.getElementById("root");
@@ -13,12 +14,13 @@ initializeSentence(sentence);
 
 async function getNewSentence() {
   try {
+    isLoading = true;
     const response = await fetch(OLLAMA_API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model: "llama3.1:8b",
-        prompt: "Generate a unique, short sentence using all letters of the alphabet. Don't use anything pre-existing. Respond only with the sentence without quotes.",
+        prompt: "Respond only with a totally unique, unformatted sentence according to these parameters: 15 words. Use the word \"Greg.\" ",
         stream: false
       }),
     });
@@ -29,6 +31,7 @@ async function getNewSentence() {
 
     const data = await response.json();
     const newSentence = data.response.trim();
+    isLoading = false;
     initializeSentence(newSentence);
   } catch (err) {
     console.error("Error fetching data: ", err);
